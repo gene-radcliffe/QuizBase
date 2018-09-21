@@ -11,7 +11,7 @@ class RegistersController < ApplicationController
     else
       render :json => {
         :status => :bad_request,
-        :errors => @user.errors.messages 
+        :errors => @user.errors.messages
       }
     end
 
