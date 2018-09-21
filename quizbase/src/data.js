@@ -3,16 +3,6 @@ import request from 'superagent'
 let userToken
 const apiDomain = process.env.REACT_APP_API_DOMAIN
 
-function getId (objOrId) {
-  if (objOrId.id) {
-    return objOrId.id
-  } else if (typeof objOrId === 'string') {
-    return objOrId
-  } else {
-    return null
-  }
-}
-
 const data = {
   setUserToken: (token) => {
     userToken = token
@@ -21,7 +11,7 @@ const data = {
     return userToken
   },
   login: (username, password) => {
-    return request.post(`${apiDomain}/api/login`)
+    return request.post(`https://vast-waters-61750.herokuapp.com/login`)
       .send({ username, password })
       .then(res => res.body.token)
       .then(token => {
