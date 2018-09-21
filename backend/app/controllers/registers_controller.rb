@@ -7,7 +7,12 @@ class RegistersController < ApplicationController
   def create 
     @user = User.new(users_params)
     if @user.save 
-      render "show", status: :created 
+      render "show", status: :created
+    else
+      render :json => {
+        :status => :bad_request,
+        :errors => @user.errors.messages 
+      }
     end
 
   end
