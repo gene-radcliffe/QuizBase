@@ -1,0 +1,3 @@
+class Fakeanswer < ApplicationRecord
+  belongs_to :question
+end
