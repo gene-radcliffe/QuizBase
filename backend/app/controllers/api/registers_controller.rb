@@ -1,4 +1,4 @@
-class RegistersController < ApplicationController
+class Api::RegistersController < ApplicationController
   def new
     
   end

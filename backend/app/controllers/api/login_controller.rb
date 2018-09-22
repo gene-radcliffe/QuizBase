@@ -1,4 +1,4 @@
-class LoginController < ApplicationController
+class Api::LoginController < ApplicationController
 include ActionController::HttpAuthentication::Basic::ControllerMethods
 
 

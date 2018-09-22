@@ -1,2 +1,2 @@
-class QuestionsController < ApplicationController
+class Api::QuestionsController < ApplicationController
 end
