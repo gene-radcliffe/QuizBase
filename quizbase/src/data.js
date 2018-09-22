@@ -1,7 +1,7 @@
 import request from 'superagent'
 
 let userToken
-const apiDomain = process.env.REACT_APP_API_DOMAIN
+const apiUrl = `https://vast-waters-61750.herokuapp.com`
 
 const data = {
   setUserToken: (token) => {
@@ -11,16 +11,17 @@ const data = {
     return userToken
   },
   login: (username, password) => {
-    return request.post(`https://vast-waters-61750.herokuapp.com/login`)
-      .send({ username, password })
+    return request.get(`${apiUrl}/login`)
+      .auth(username, password)
       .then(res => res.body.token)
+      .then(res => res.body.name)
       .then(token => {
         data.setUserToken(token)
         return { username, token }
       })
   },
-  register: (username, password) => {
-    return request.post(`${apiDomain}/api/register`)
+  register: (username, password, name, email) => {
+    return request.post(`${apiUrl}/register`)
       .send({ username, password })
       .then(res => res.body)
       .then(user => {

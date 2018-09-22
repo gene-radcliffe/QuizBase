@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import data from './data'
 
 class RegistrationForm extends Component {
   constructor (props) {
@@ -10,32 +11,45 @@ class RegistrationForm extends Component {
       passwordConfirmation: '',
       email: ''
     }
+
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleSubmit (event) {
+    event.preventDefault()
+    const { name, username, password, email } = this.state
+    data.register(username, password, email, name)
+      .then(user => this.props.setCurrentUser(user))
   }
   render () {
     return (
       <div className='login box'>
         <form onSubmit={this.handleSubmit}>
-          <div className='username'>
-            <label>Username</label>
-            <input type='text' value={this.state.username}
+          <div className='username box'>
+            <input className='field' type='text'
+              value={this.state.username}
+              placeholder='username'
               onChange={(e) => this.setState({ username: e.target.value })} />
           </div>
-          <div className='password'>
-            <label>Password</label>
-            <input type='password' value={this.state.password}
+          <div className='password box'>
+            <input className='field' type='password'
+              value={this.state.password}
+              placeholder='password'
               onChange={(e) => this.setState({ password: e.target.value })} />
           </div>
-          <div className='password'>
-            <label>Confirm Password</label>
-            <input type='password' value={this.state.passwordConfirmation}
+          <div className='password box'>
+            <input className='field' type='password'
+              value={this.state.passwordConfirmation}
+              placeholder='confirm password'
               onChange={(e) => this.setState({ passwordConfirmation: e.target.value })} />
           </div>
-          <div className='email'>
-            <label>Email</label>
-            <input type='text' value={this.state.email}
+          <div className='email box'>
+            <input className='field' type='text'
+              value={this.state.email}
+              placeholder='email'
               onChange={(e) => this.setState({ email: e.target.value })} />
-            <button type='submit'>Login</button>
           </div>
+          <button type='submit'>Register</button>
         </form>
       </div>
     )

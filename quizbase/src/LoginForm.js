@@ -1,17 +1,13 @@
 import React, { Component } from 'react'
 import data from './data'
 
-import RegistrationForm from './RegistrationForm'
-
 class LoginForm extends Component {
   constructor (props) {
     super()
     this.state = {
-      username: '',
-      password: '',
-      isLoggingIn: true
+      username: 'gene',
+      password: '1234'
     }
-
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -19,33 +15,30 @@ class LoginForm extends Component {
     event.preventDefault()
     const { username, password } = this.state
     data.login(username, password)
-      .then(user => this.props.setCurrentUser(user))
-      .catch(err => {
-        this.setState({
-          errorMsg: err.message
-        })
-      })
+      .then(res => this.props.setCurrentUser(res, username))
+      //   this.setState({
+      //     errorMsg: err.message
+      //   })
+      // })
   }
 
   render () {
+    const { username, password } = this.state
     return (
       <React.Fragment>
         <div className='login box'>
           <form onSubmit={this.handleSubmit}>
-            <div className='username'>
-              <label>Username</label>
-              <input type='text' value={this.state.username}
+            <div className='username box'>
+              <input className='field' type='text' value={username} placeholder='username'
                 onChange={(e) => this.setState({ username: e.target.value })} />
             </div>
-            <div className='password'>
-              <label>Password</label>
-              <input type='password' value={this.state.password}
+            <div className='password box'>
+              <input className='field' type='password' value={password} placeholder='password'
                 onChange={(e) => this.setState({ password: e.target.value })} />
             </div>
             <button type='submit'>Login</button>
           </form>
         </div>
-        <RegistrationForm />
       </React.Fragment>
     )
   }

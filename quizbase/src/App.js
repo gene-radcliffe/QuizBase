@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 
-import LoginForm from './LoginForm'
+import EntryForm from './EntryForm'
 
 class App extends Component {
   constructor () {
@@ -12,10 +12,10 @@ class App extends Component {
     this.setCurrentUser = this.setCurrentUser.bind(this)
   }
 
-  setCurrentUser (user) {
+  setCurrentUser (user, username) {
     window.localStorage.setItem('username', user.username)
     window.localStorage.setItem('token', user.token)
-    this.setState({ currentUser: user })
+    this.setState({ currentUser: username })
   }
 
   render () {
@@ -32,8 +32,8 @@ class App extends Component {
           </div>
           <div className='quiz-body-container'>
             {currentUser
-              ? <h1>Welcome Placeholder</h1>
-              : <LoginForm setCurrentUser={this.setCurrentUser} />
+              ? <h1>Welcome {currentUser}</h1>
+              : <EntryForm setCurrentUser={this.setCurrentUser} currentUser={this.currentUser} />
             }
           </div>
         </div>
