@@ -9,19 +9,21 @@ include ActionController::HttpAuthentication::Basic::ControllerMethods
 
             if user && user.authenticate(password) then
                 render :json =>{
-                :status => :ok,
-                :id => user.id,
-                :admin => user.admin,
-                :name => user.name,
-                :token => user.api_token,
-                :joined => user.created_at
+                :user=>{
+                    :status => :ok,
+                    :id => user.id,
+                    :admin => user.admin,
+                    :name => user.name,
+                    :token => user.api_token,
+                    :joined => user.created_at
+                }
             }
             else
-                render :json =>{
-                :status => :unauthorized,
-                :message => "unauthorized"
-            }
-
+            
+                    render :json =>{
+                    :status => :unauthorized,
+                    :message => "User/Password Bad"
+                    }
             end
         end
 
