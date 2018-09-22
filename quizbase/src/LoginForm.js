@@ -5,8 +5,8 @@ class LoginForm extends Component {
   constructor (props) {
     super()
     this.state = {
-      username: 'gene',
-      password: '1234'
+      username: '',
+      password: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }

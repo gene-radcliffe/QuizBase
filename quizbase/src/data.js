@@ -14,7 +14,6 @@ const data = {
     return request.get(`${apiUrl}/login`)
       .auth(username, password)
       .then(res => res.body.token)
-      .then(res => res.body.name)
       .then(token => {
         data.setUserToken(token)
         return { username, token }
