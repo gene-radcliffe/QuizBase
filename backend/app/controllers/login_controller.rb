@@ -17,11 +17,16 @@ include ActionController::HttpAuthentication::Basic::ControllerMethods
                 :joined => user.created_at
             }
             else
+                if !user
+                    render :json =>{
+                    :status => :unauthorized,
+                    :message => "user not found"
+                    }
+                end
                 render :json =>{
-                :status => :unauthorized,
-                :message => "unauthorized"
-            }
-
+                    :status => :unauthorized,
+                    :message => "User/Password Bad"
+                    }
             end
         end
 

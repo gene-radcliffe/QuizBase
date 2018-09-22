@@ -5,9 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-  User.create(name:"mike", email:"mike@momentum.com", password:"1234", admin:true)
+  User.create!(name:"mike",username:"mike_123", email:"mike@momentum.com", password:"1234", admin:true)
 
-  User.create(name:"charlie", email:"charlie@momentum.com", password:"1234", admin:false)
+  User.create!(name:"charlie",username:"charliebrown", email:"charlie@momentum.com", password:"1234", admin:false)
   
   user = User.first
   quiz = Quiz.create!(title:"JavaScript arrays", 
