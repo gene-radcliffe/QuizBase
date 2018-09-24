@@ -2,14 +2,10 @@ import React, { Component } from 'react'
 import data from './data'
 
 class Depot extends Component {
-  constructor () {
+  constructor (props) {
     super()
     this.state = {
-      quizzes: [
-        'title 1',
-        'title 2',
-        'title 3'
-      ]
+      quizzes: []
     }
   }
 
@@ -19,23 +15,20 @@ class Depot extends Component {
 
   loadQuizzes () {
     data.getQuizzes()
-      .then(quizzes => this.setState({
-        quizzes: quizzes
-      }))
+      .then(quizzes => this.setState({ quizzes: quizzes }))
   }
 
   render () {
-    const quizzes = this.state.quizzes
+    console.log(this.state.quizzes)
     return (
       <React.Fragment>
         <ul className='quiz-list'>
-          {quizzes.map((quiz, i) =>
+          {this.state.quizzes.map((quiz, i) =>
             <li key={i}>
-              <h1>Quiz: {quiz.title}</h1>
+              <h1>Quiz: {quiz.quiz.title}</h1>
             </li>
           )}
         </ul>
-        {this.state.quizzes}
       </React.Fragment>
     )
   }

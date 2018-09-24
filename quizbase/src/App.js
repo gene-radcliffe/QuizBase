@@ -49,7 +49,7 @@ class App extends Component {
           </div>
           <div className='quiz-body-container'>
             {currentUser
-              ? <Depot />
+              ? <Depot currentUser={this.currentUser} />
               : <EntryForm setCurrentUser={this.setCurrentUser} currentUser={this.currentUser} />
             }
           </div>

@@ -31,7 +31,10 @@ const data = {
   getQuizzes: () => {
     return request.get(`${apiUrl}/api/quizzes`)
       .set('Authorization', `Bearer ${userToken}`)
-      .then(res => res.body.quizzes)
+      .then(res => {
+        let quizzes = res.body.quizzes
+        return (quizzes)
+      })
   }
 }
 
