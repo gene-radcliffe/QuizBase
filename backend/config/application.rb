@@ -38,6 +38,6 @@ module Backend
        resource '*', headers: :any, methods: [:get, :post, :patch, :delete, :put, :options]
       end
      end
-     
+
   end
 end
