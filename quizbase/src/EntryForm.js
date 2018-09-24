@@ -37,7 +37,9 @@ class EntryForm extends Component {
             </div>
           </div>
           {this.state.registering
-            ? <RegistrationForm setCurrentUser={this.props.setCurrentUser} currentUser={this.props.currentUser} />
+            ? <RegistrationForm setCurrentUser={this.props.setCurrentUser}
+              currentUser={this.props.currentUser}
+              registering={this.props.registering} />
             : <LoginForm setCurrentUser={this.props.setCurrentUser} currentUser={this.props.currentUser} />
           }
         </div>

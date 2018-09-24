@@ -15,11 +15,7 @@ class LoginForm extends Component {
     event.preventDefault()
     const { username, password } = this.state
     data.login(username, password)
-      .then(res => this.props.setCurrentUser(res, username))
-      //   this.setState({
-      //     errorMsg: err.message
-      //   })
-      // })
+      .then(user => this.props.setCurrentUser(user))
   }
 
   render () {

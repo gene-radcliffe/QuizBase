@@ -11,24 +11,28 @@ const data = {
     return userToken
   },
   login: (username, password) => {
-    return request.get(`${apiUrl}/login`)
+    return request.get(`${apiUrl}/api/login`)
       .auth(username, password)
-      .then(res => res.body.token)
+      .then(res => res.body.user.token)
       .then(token => {
         data.setUserToken(token)
-        return { username, token }
+        return { token, username }
       })
   },
-  register: (username, password, name, email) => {
-    return request.post(`${apiUrl}/register`)
-      .send({ username, password })
-      .then(res => res.body)
-      .then(user => {
-        data.setUserToken(user.token)
-        return user
+  register: (newUserObject) => {
+    return request.post(`${apiUrl}/api/registers`)
+      .send(newUserObject)
+      .then(res => res.body.user.token)
+      .then(token => {
+        data.setUserToken(token)
+        return { token }
       })
+  },
+  getQuizzes: () => {
+    return request.get(`${apiUrl}/api/quizzes`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => res.body.quizzes)
   }
-
 }
 
 export default data

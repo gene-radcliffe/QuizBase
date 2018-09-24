@@ -18,13 +18,26 @@ class RegistrationForm extends Component {
   handleSubmit (event) {
     event.preventDefault()
     const { name, username, password, email } = this.state
-    data.register(username, password, email, name)
+    const newUserObject = { user: {
+      username: username,
+      password: password,
+      email: email,
+      name: name
+    } }
+    data.register(newUserObject)
       .then(user => this.props.setCurrentUser(user))
   }
+
   render () {
     return (
       <div className='login box'>
         <form onSubmit={this.handleSubmit}>
+          <div className='name box'>
+            <input className='field' type='text'
+              value={this.state.name}
+              placeholder='name'
+              onChange={(e) => this.setState({ name: e.target.value })} />
+          </div>
           <div className='username box'>
             <input className='field' type='text'
               value={this.state.username}

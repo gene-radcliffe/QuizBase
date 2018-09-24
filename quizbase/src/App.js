@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 
 import EntryForm from './EntryForm'
+import Depot from './Depot'
 
 class App extends Component {
   constructor () {
@@ -12,10 +13,21 @@ class App extends Component {
     this.setCurrentUser = this.setCurrentUser.bind(this)
   }
 
-  setCurrentUser (user, username) {
+  setCurrentUser (user) {
     window.localStorage.setItem('username', user.username)
     window.localStorage.setItem('token', user.token)
-    this.setState({ currentUser: username })
+    this.setState({ currentUser: user.username })
+  }
+
+  resetCurrentUser () {
+    this.setState({
+      currentUser: null
+    })
+  }
+
+  logOut () {
+    window.localStorage.clear()
+    this.resetCurrentUser()
   }
 
   render () {
@@ -23,7 +35,12 @@ class App extends Component {
     return (
       <div className='container'>
         <div className='box-left'>
-          <div className='top-box-left' />
+          <div className='top-box-left'>
+            {currentUser ? <div><p>Welcome {currentUser}</p>
+              <button onClick={() => this.logOut()}>Log Out</button></div>
+              : <p />}
+
+          </div>
           <div className='nav-column' />
         </div>
         <div className='box-right'>
@@ -32,7 +49,7 @@ class App extends Component {
           </div>
           <div className='quiz-body-container'>
             {currentUser
-              ? <h1>Welcome {currentUser}</h1>
+              ? <Depot />
               : <EntryForm setCurrentUser={this.setCurrentUser} currentUser={this.currentUser} />
             }
           </div>
