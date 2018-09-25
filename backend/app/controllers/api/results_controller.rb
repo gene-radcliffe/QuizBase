@@ -1,7 +1,8 @@
 class Api::ResultsController < ApplicationController
    
     def create
-   
+        byebug
+        
         result=params["result"]
         @user_id = result[:user_id]
         @quiz_id= result[:quiz_id]
@@ -17,12 +18,11 @@ class Api::ResultsController < ApplicationController
             
             @answer=Answer.find(answer_id)
 
-                # byebug
+                
 
                 if @answer.correct == true
                      @score += 1
-                #  else
-                #      @score -= 1
+                
                  end
                  
         end
