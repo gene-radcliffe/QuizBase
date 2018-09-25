@@ -7,5 +7,6 @@ Rails.application.routes.draw do
     resources :quizzes
     resources :questions
     resources :answers
+    resources :results
   end
 end
