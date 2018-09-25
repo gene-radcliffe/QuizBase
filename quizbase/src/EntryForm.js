@@ -6,8 +6,7 @@ class EntryForm extends Component {
   constructor (props) {
     super()
     this.state = {
-      registering: false,
-      class: 'entry-text'
+      registering: false
     }
   }
 

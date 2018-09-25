@@ -1,5 +1,10 @@
 import React, { Component } from 'react'
 import './App.css'
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect
+} from 'react-router-dom'
 
 import EntryForm from './EntryForm'
 import Depot from './Depot'
@@ -33,29 +38,42 @@ class App extends Component {
   render () {
     const { currentUser } = this.state
     return (
-      <div className='container'>
-        <div className='box-left'>
-          <div className='top-box-left'>
-            {currentUser ? <div><p>Welcome {currentUser}</p>
-              <button onClick={() => this.logOut()}>Log Out</button></div>
-              : <p />}
-
+      <Router>
+        <div className='container'>
+          <div className='box-left'>
+            <div className='top-box-left'>
+              {currentUser ? <div><p>Welcome {currentUser}</p>
+                <button onClick={() => this.logOut()}>Log Out</button></div>
+                : <p />}
+            </div>
+            <div className='nav-column' />
           </div>
-          <div className='nav-column' />
+          <div className='box-right'>
+            <div className='top-bar'>
+              <h1 className='page-header'>QuizBase</h1>
+            </div>
+            <div className='quiz-body-container'>
+              <Route exact path='/' render={() =>
+                <Guard condition={this.state.currentUser} redirectTo='/login'>
+                  <Depot currentUser={this.state.currentUser} />
+                </Guard>} />
+              <Route path='/login' render={() =>
+                <Guard condition={!this.state.currentUser} redirectTo='/'>
+                  <EntryForm setCurrentUser={this.setCurrentUser} />
+                </Guard>} />
+            </div>
+          </div>
         </div>
-        <div className='box-right'>
-          <div className='top-bar'>
-            <h1 className='page-header'>QuizBase</h1>
-          </div>
-          <div className='quiz-body-container'>
-            {currentUser
-              ? <Depot currentUser={this.currentUser} />
-              : <EntryForm setCurrentUser={this.setCurrentUser} currentUser={this.currentUser} />
-            }
-          </div>
-        </div>
-      </div>
+      </Router>
     )
+  }
+}
+
+const Guard = ({ redirectTo, condition, children }) => {
+  if (condition) {
+    return children
+  } else {
+    return <Redirect to={redirectTo} />
   }
 }
 

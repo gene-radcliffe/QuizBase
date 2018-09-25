@@ -1,4 +1,4 @@
-import request from 'superagent'
+import request from 'superagent/superagent.js'
 
 let userToken
 const apiUrl = `https://vast-waters-61750.herokuapp.com`
@@ -34,6 +34,31 @@ const data = {
       .then(res => {
         let quizzes = res.body.quizzes
         return (quizzes)
+      })
+  },
+  getQuestions: () => {
+    return request.get(`${apiUrl}/api/questions`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => {
+        let questions = res.body.questions
+        return (questions)
+      })
+  },
+  getAnswers: () => {
+    return request.get(`${apiUrl}/api/answers`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(res => {
+        let answers = res.body.answers
+        return (answers)
+      })
+  },
+  postAnswers: (answerObject) => {
+    return request.post(`${apiUrl}/api/results`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .send(answerObject)
+      .then(res => {
+        let result = res.body.result
+        return (result)
       })
   }
 }
