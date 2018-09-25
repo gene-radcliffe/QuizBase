@@ -5,5 +5,6 @@ Rails.application.routes.draw do
     resources :login 
     resources :registers
     resources :quizzes
+    resources :results
   end
 end
