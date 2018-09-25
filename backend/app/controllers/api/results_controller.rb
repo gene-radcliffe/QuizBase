@@ -1,23 +1,23 @@
 class Api::ResultsController < ApplicationController
-   
+    before_action :verify_authentication
+
     def create
-        byebug
+        
         
         result=params["result"]
-        @user_id = result[:user_id]
-        @quiz_id= result[:quiz_id]
+        @user_id = current_user[:id]
+        
         @score = 0
         size = 0
         
         # loop to extract questions and answers
-        quiz= result["quiz"]
-        questions_array = quiz["questions"]
-        questions_array.each do |question|
-            question_id = question[:id]
-            answer_id = question["answer"][:id]
+      
+        answers_array = result["answers"]
+        answers_array.each do |answer|
+            answer_id = answer[:answer]
             
             @answer=Answer.find(answer_id)
-
+           
                 
 
                 if @answer.correct == true
@@ -26,9 +26,13 @@ class Api::ResultsController < ApplicationController
                  end
                  
         end
-        
+
+        @question_id= @answer.question_id
+        @question=Question.find(@question_id)
+        @quiz_id = @question.quiz_id
+
              
-        size = questions_array.length
+        size = answers_array.length
         @score = (@score.to_f/size)*100
         @score = @score.floor
         
@@ -36,7 +40,7 @@ class Api::ResultsController < ApplicationController
         
         
     
-        @result = Result.new(result_params)
+        @result = Result.new(quiz_id: @quiz_id, score: @score, user_id: @user_id)
         @result.score = @score
         if @result.save
             render "api/results/show.json", status: :created
@@ -47,9 +51,9 @@ class Api::ResultsController < ApplicationController
     
     private
 
-    def result_params
-        params.require(:result).permit(:user_id, :quiz_id, :score)
-    end
+    # def result_params
+    #     params.require(:result).permit(:user_id, :quiz_id, :score)
+    # end
 
 
 end

@@ -13,7 +13,7 @@ class ApplicationController < ActionController::API
   
   protected
    def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    @current_user 
    end
 
    def logged_in?
@@ -21,8 +21,10 @@ class ApplicationController < ActionController::API
   end
 
   def token_user
+  
    user = authenticate_with_http_token do |token, options|
-   User.find_by_api_token(token)
+   @current_user= User.find_by_api_token(token)
+   
    end
   end
 end
