@@ -1,4 +1,5 @@
 class Api::UsersController < ApplicationController
+    before_action :verify_authentication
     
     def index
         @users = User.all 
