@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
 import data from './data'
 
+import 'materialize-css'
+import 'materialize-css/dist/css/materialize.min.css'
+
 class LoginForm extends Component {
   constructor (props) {
     super()
     this.state = {
-      username: 'wanda',
-      password: '1234'
+      username: '',
+      password: '',
+      pastQuizzes: props.pastQuizzes
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -16,23 +20,29 @@ class LoginForm extends Component {
     const { username, password } = this.state
     data.login(username, password)
       .then(user => this.props.setCurrentUser(user))
+    data.getPastQuizzes(username, password)
+      .then(pastQuizzes => this.setState({
+        pastQuizzes: pastQuizzes
+      }))
   }
 
   render () {
     const { username, password } = this.state
     return (
       <React.Fragment>
-        <div className='login box'>
+        <div className='input-field col s12'>
           <form onSubmit={this.handleSubmit}>
-            <div className='username box'>
-              <input className='field' type='text' value={username} placeholder='username'
-                onChange={(e) => this.setState({ username: e.target.value })} />
+            <div className='box'>
+              <div className='input-field'>
+                <input type='text' value={username} placeholder='username'
+                  onChange={(e) => this.setState({ username: e.target.value })} />
+              </div>
+              <div className='input-field col s12'>
+                <input type='password' value={password} placeholder='password'
+                  onChange={(e) => this.setState({ password: e.target.value })} />
+              </div>
             </div>
-            <div className='password box'>
-              <input className='field' type='password' value={password} placeholder='password'
-                onChange={(e) => this.setState({ password: e.target.value })} />
-            </div>
-            <button type='submit'>Login</button>
+            <button className='waves-effect waves-light btn' type='submit'>Login</button>
           </form>
         </div>
       </React.Fragment>

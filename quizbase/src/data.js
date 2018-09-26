@@ -60,7 +60,17 @@ const data = {
         let result = res.body.result
         return (result)
       })
+  },
+  getPastQuizzes: (username, password) => {
+    return request.get(`${apiUrl}/api/login`)
+      .auth(username, password)
+      .then(res => res.body.user.id)
+      .then(id => {
+        request.get(`${apiUrl}/api/users/${id}`)
+          .then(res => {
+            return (res)
+          })
+      })
   }
 }
-
 export default data

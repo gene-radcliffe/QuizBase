@@ -13,7 +13,8 @@ class App extends Component {
   constructor () {
     super()
     this.state = {
-      currentUser: null
+      currentUser: null,
+      pastQuizzes: []
     }
     this.setCurrentUser = this.setCurrentUser.bind(this)
   }
@@ -43,7 +44,7 @@ class App extends Component {
           <div className='box-left'>
             <div className='top-box-left'>
               {currentUser ? <div><p>Welcome {currentUser}</p>
-                <button onClick={() => this.logOut()}>Log Out</button></div>
+                <button className='waves-effect waves-light btn' onClick={() => this.logOut()}>Log Out</button></div>
                 : <p />}
             </div>
             <div className='nav-column' />
@@ -59,7 +60,7 @@ class App extends Component {
                 </Guard>} />
               <Route path='/login' render={() =>
                 <Guard condition={!this.state.currentUser} redirectTo='/'>
-                  <EntryForm setCurrentUser={this.setCurrentUser} />
+                  <EntryForm setCurrentUser={this.setCurrentUser} pastQuizzes={this.state.pastQuizzes} />
                 </Guard>} />
             </div>
           </div>

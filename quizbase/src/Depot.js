@@ -44,17 +44,19 @@ class Depot extends Component {
     console.log(this.state.selectedQuiz)
     return (
       <React.Fragment>
-        {(this.state.selectedQuiz.length !== 0)
-          ? <QuizView quiz={this.state.selectedQuiz} />
-          : <ul className='quiz-list'>
-            {this.state.quizzes.map((quiz, i) =>
-              <li key={i}>
-                <h1 className='quiz-title'
-                  onClick={() => this.selectQuiz(quiz.quiz)}
-                >Quiz: {quiz.quiz.title}</h1>
-              </li>
-            )}
-          </ul>}
+        <div className='entry-box quiz-view'>
+          {(this.state.selectedQuiz.length !== 0)
+            ? <QuizView quiz={this.state.selectedQuiz} />
+            : <ul className='quiz-list'>
+              {this.state.quizzes.map((quiz, i) =>
+                <li key={i}>
+                  <h4 className='quiz-title'
+                    onClick={() => this.selectQuiz(quiz.quiz)}
+                  >Quiz: {quiz.quiz.title}</h4>
+                </li>
+              )}
+            </ul>}
+        </div>
       </React.Fragment>
     )
   }

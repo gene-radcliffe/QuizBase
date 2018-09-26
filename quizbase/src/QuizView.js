@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import data from './data'
+import Results from './Results'
 
 class QuizView extends Component {
   constructor (props) {
@@ -44,15 +45,17 @@ class QuizView extends Component {
             <li key={idx}> Question: {question.question}
               <ol>
                 {question.answers.map((answer, index) =>
-                  <li key={index}
-                  ><input type='radio' value={answer.id} name={question.id} onChange={(e) => this.handleChange(e)}
-                    />{answer.body}
-                  </li>)}
+                  <p key={index}>
+                    <label>
+                      <input type='radio' value={answer.id} name={question.id} onChange={(e) => this.handleChange(e)} />
+                      <span>{answer.body}</span>
+                    </label>
+                  </p>)}
               </ol>
             </li>
           )}
         </ul>
-        <button
+        <button className='waves-effect waves-light btn'
           onClick={() => this.sendAnswers(this.formatAnswers(this.state.quizAnswers))}>Submit</button>
       </div>
     )
@@ -61,12 +64,15 @@ class QuizView extends Component {
   render () {
     console.log(this.state.result)
     const quiz = this.state.selectedQuiz
-    const result = this.state.result
+
     return (
       <React.Fragment>
-        <h1>{quiz.title}</h1>
-        {this.renderQuiz(quiz)}
-        <h4>You answered {result.score} percent of questions correctly</h4>
+        {this.state.result.length !== 0
+          ? <Results result={this.state.result} />
+          : <div>
+            <h1>{quiz.title}</h1>
+            {this.renderQuiz(quiz)}
+          </div>}
       </React.Fragment>
     )
   }

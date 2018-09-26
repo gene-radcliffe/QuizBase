@@ -39,7 +39,7 @@ class EntryForm extends Component {
             ? <RegistrationForm setCurrentUser={this.props.setCurrentUser}
               currentUser={this.props.currentUser}
               registering={this.props.registering} />
-            : <LoginForm setCurrentUser={this.props.setCurrentUser} currentUser={this.props.currentUser} />
+            : <LoginForm pastQuizzes={this.props.pastQuizzes} setCurrentUser={this.props.setCurrentUser} currentUser={this.props.currentUser} />
           }
         </div>
       </React.Fragment>

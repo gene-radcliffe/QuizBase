@@ -62,7 +62,7 @@ class RegistrationForm extends Component {
               placeholder='email'
               onChange={(e) => this.setState({ email: e.target.value })} />
           </div>
-          <button type='submit'>Register</button>
+          <button type='submit' className='waves-effect waves-light btn'>Register</button>
         </form>
       </div>
     )
