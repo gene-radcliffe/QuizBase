@@ -5,84 +5,42 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-  User.create!(name:"mike",username:"mike_123", email:"mike@momentum.com", password:"1234", admin:true)
+  require 'csv'
+  User.delete_all
+  @user = User.new(  name:"Gene Radcliffe", 
+                    email:"g_radcliffe82@hotmail.com",
+                    username: "gradcliffe82",
+                    password: "123456")
 
-  User.create!(name:"charlie",username:"charliebrown", email:"charlie@momentum.com", password:"1234", admin:false)
+  @user.save!
+
+  Quiz.delete_all
+  quizzes = CSV.open("./samples/quizzes.csv", headers:true)
   
-  user = User.first
-  quiz = Quiz.create!(title:"JavaScript arrays", 
-    user_id: user.id, 
-    published: true, 
-    published_date: Time.now)
+  quizzes.each do |row|
+    quiz = Quiz.new(title: row['title'],
+                    user_id=@user.id,
+                    published: true,
+                    published_date: Time.new)
+    quiz.save!
+  end
 
-    question = quiz.questions.create!(body:"What method do you use to get all records that match a condition?" )
-    
-      answer= question.answers.create!(
-        body:"find", correct:false)
-      answer= question.answers.create!(
-        body:"findAll", correct:false)
-      answer= question.answers.create!(
-        body:"filter", correct:true)
-      answer= question.answers.create!(
-        body:"reduce", correct:false)
   
-    
-    
-    
-    question = quiz.questions.create!(body:"What does `findIndex` return if no records match its condition?")
-    answer= question.answers.create!(
-      body:"-1", correct:true)
-    answer= question.answers.create!(
-      body:"false", correct:false)
-    answer= question.answers.create!(
-      body:"null", correct:false)
-    
+  Question.delete_all
+  questions = CSV.open("./samples/questions.csv", headers:true)
+  questions.each do |row|
+    question = Question.new(quiz_id:row['quiz_id'],
+                            body: row['body'])
+    question.save!
 
-    question = quiz.questions.create!(body:"Which of the following does the method `map` do?")
-      answer= question.answers.create!(
-        body:"create a new array of shorter length than the original", correct:false)
-      answer= question.answers.create!(
-        body:"create a new array of the same length as the original", correct:true)
-      answer= question.answers.create!(
-        body:"return a single value", correct:false)
-      answer= question.answers.create!(
-        body:"transform the original array", correct:false)
-      
-    quiz = Quiz.create!(title:"Rails Models",
-      user_id: user.id,
-      published: false, 
-      published_date: nil)
-      question = quiz.questions.create!(body:"Given a table `posts` and another table `comments` with the field `post_id`, which of the following associations would you use to connect the tables?" )
+  end
+  
+  Answer.delete_all
+  answers = CSV.open("./samples/answers.csv", headers:true)
+  answers.each do |row|
+    answer = Answer.new(body:row['body'],
+                        question_id: row['question_id'],
+                        correct: row['correct'])
+    answer.save!
+  end
 
-      answer= question.answers.create!(
-        body:"has_and_belongs_to_many :posts", correct:false)
-      answer= question.answers.create!(
-        body:"belongs_to :post, through: :post_id` in `Comment", correct:false)
-      answer= question.answers.create!(
-        body:"has_many :comments` in `Post", correct:true)
-      answer= question.answers.create!(
-        body:"belongs_to :comment", correct:false)
-
-      question = quiz.questions.create!(body:"Which of the following is a built-in Rails validation?")
-
-      answer= question.answers.create!(
-        body:"numericality", correct:true)
-      answer= question.answers.create!(
-        body:"reliability", correct:false)
-      answer= question.answers.create!(
-        body:"email", correct:false)
-      answer= question.answers.create!(
-        body:"text", correct:false)
-      answer= question.answers.create!(
-        body:"size", correct:false)
-      
-      question = quiz.questions.create!(body:"Which of the following is **not** a database you can use with ActiveRecord?")
-        
-      answer= question.answers.create!(
-        body:"PostgreSQL", correct:false)
-      answer= question.answers.create!(
-        body:"SQlite", correct:false)
-      answer= question.answers.create!(
-        body:"MySQL", correct:false)
-      answer= question.answers.create!(
-        body:"MongoDB", correct:true) 
