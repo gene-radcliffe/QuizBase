@@ -17,6 +17,7 @@ class RegistrationForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.validatePassword = this.validatePassword.bind(this)
     this.validateConfirmPassword = this.validateConfirmPassword.bind(this)
+    this.validateEmail = this.validateEmail.bind(this)
   }
 
   handleSubmit (event) {
@@ -33,7 +34,7 @@ class RegistrationForm extends Component {
       })
   }
   validatePassword(e){
-
+    console.log("e" + e.target.id)
     if(e.target.value.length == 0){
       if(e.target.classList.contains("valid")){
         e.target.classList.remove("valid")
@@ -53,7 +54,7 @@ class RegistrationForm extends Component {
     if(e.target.value.length >=6 ){
       if(e.target.classList.contains("invalid")){
           e.target.classList.remove("invalid")
-      }
+      }console.log("whoa")
         e.target.classList.add("valid")
     }
     this.setState({ password: e.target.value })
@@ -61,7 +62,7 @@ class RegistrationForm extends Component {
   }
 
   validateConfirmPassword(e){
-
+    
     if(e.target.value.length == 0){
       if(e.target.classList.contains("valid")){
         e.target.classList.remove("valid")
@@ -85,7 +86,7 @@ class RegistrationForm extends Component {
         
         if(e.target.classList.contains("invalid")){
           e.target.classList.remove("invalid")
-        }
+        }console.log("whoa")
         e.target.classList.add("valid")
 
       }else{
@@ -99,7 +100,28 @@ class RegistrationForm extends Component {
     }
     this.setState({ passwordConfirmation: e.target.value })
   }
+  validateEmail(e){
 
+    let myRegex = new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/);
+
+    let result = myRegex.exec(e.target.value)
+    if(result != null){
+
+      if(result.length>0){
+        if(e.target.classList.contains("invalid")){
+          e.target.classList.remove("invalid")
+      }
+        e.target.classList.add("valid")
+      }
+      // if(result.length==0){
+      //   if(e.target.classList.contains("valid")){
+      //     e.target.classList.remove("valid")
+      // }
+      //   e.target.classList.add("invalid")
+      // }
+      this.setState({ email: e.target.value })
+    }
+  }
   render () {
     return (
       <div className='login box'>
@@ -127,13 +149,14 @@ class RegistrationForm extends Component {
               value={this.state.passwordConfirmation}
               placeholder='confirm password'
               onChange={(e) => this.validateConfirmPassword(e)} />
-              <span className="helper-text" data-error="Passwords do not match" data-success="Passwords match">Helper text</span>
+              <span className="helper-text" data-error="Passwords do not match" data-success="Passwords match"></span>
           </div>
-          <div className='email box'>
-            <input className='field' type='text'
+          <div className='input-field email box'>
+            <input className='validate field' type='text'
               value={this.state.email}
               placeholder='email'
-              onChange={(e) => this.setState({ email: e.target.value })} />
+              onChange={(e) => this.validateEmail(e)} />
+               <span className="helper-text" data-error="Invalid Email" data-success="Email is valid"></span>
           </div>
           <button type='submit' className='waves-effect waves-light btn'>Register</button>
         </form>
