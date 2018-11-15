@@ -13,16 +13,18 @@
                     password: "123456")
 
   @user.save!
+  puts @user
 
   Quiz.delete_all
   quizzes = CSV.open("./samples/quizzes.csv", headers:true)
   
   quizzes.each do |row|
     quiz = Quiz.new(title: row['title'],
-                    user_id=@user.id,
+                    user_id: @user.id,
                     published: true,
                     published_date: Time.new)
-    quiz.save!
+     quiz.save!
+     puts quiz
   end
 
   
@@ -30,17 +32,18 @@
   questions = CSV.open("./samples/questions.csv", headers:true)
   questions.each do |row|
     question = Question.new(quiz_id:row['quiz_id'],
-                            body: row['body'])
+                            body: row['text'])
     question.save!
-
+    puts question
   end
   
   Answer.delete_all
   answers = CSV.open("./samples/answers.csv", headers:true)
   answers.each do |row|
-    answer = Answer.new(body:row['body'],
+    answer = Answer.new(body:row['text'],
                         question_id: row['question_id'],
                         correct: row['correct'])
     answer.save!
+    puts answer
   end
 
