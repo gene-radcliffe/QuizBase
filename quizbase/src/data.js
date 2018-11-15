@@ -1,7 +1,7 @@
 import request from 'superagent/superagent.js'
 
 let userToken
-const apiUrl = `https://vast-waters-61750.herokuapp.com`
+const apiUrl = `https://intense-cove-32362.herokuapp.com`
 
 const data = {
   setUserToken: (token) => {
