@@ -24,23 +24,24 @@ class EntryForm extends Component {
   render () {
     return (
       <React.Fragment>
-        <div className='entry-box'>
-          <div className='entry-options'>
-            <div className='entry-text'
-              onClick={() => this.renderLogin()}>
-              <a>Log In</a>
-            </div>
-            <div className='entry-text'
-              onClick={() => this.renderRegister()}>
-              <a>Register</a>
-            </div>
-          </div>
+        <div className='shadow-qb log-in_container'>
+          <div>Login</div>
+          <div>
           {this.state.registering
             ? <RegistrationForm setCurrentUser={this.props.setCurrentUser}
               currentUser={this.props.currentUser}
               registering={this.props.registering} />
             : <LoginForm pastQuizzes={this.props.pastQuizzes} setCurrentUser={this.props.setCurrentUser} currentUser={this.props.currentUser} />
           }
+          </div>
+          <div className='entry-options'>
+            <div className='entry-text'onClick={() => this.renderLogin()}>
+              <a>Log In</a>
+            </div>
+            <div className='entry-text'onClick={() => this.renderRegister()}>
+              <a>Register</a>
+            </div>
+          </div>
         </div>
       </React.Fragment>
     )

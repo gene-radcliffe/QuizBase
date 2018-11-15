@@ -49,10 +49,11 @@ class App extends Component {
             </div>
             <div className='nav-column' />
           </div>
-          <div className='box-right'>
+          <div className='box-right head'>
             <div className='top-bar'>
               <h1 className='page-header'>QuizBase</h1>
             </div>
+
             <div className='quiz-body-container'>
               <Route exact path='/' render={() =>
                 <Guard condition={this.state.currentUser} redirectTo='/login'>
