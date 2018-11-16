@@ -7,6 +7,7 @@ class EntryForm extends Component {
     super()
     this.state = {
       registering: false
+     
     }
   }
 
@@ -22,16 +23,15 @@ class EntryForm extends Component {
   }
 
   render () {
+    const {registering}=this.state
     return (
       <React.Fragment>
         <div className='shadow-qb entry-form'>
           <div>
-          {this.state.registering
-            ? <RegistrationForm setCurrentUser={this.props.setCurrentUser}
+          {registering ? <RegistrationForm setCurrentUser={this.props.setCurrentUser}
               currentUser={this.props.currentUser}
               registering={this.props.registering} />
-            : <LoginForm pastQuizzes={this.props.pastQuizzes} setCurrentUser={this.props.setCurrentUser} currentUser={this.props.currentUser} />
-          }
+            : <LoginForm pastQuizzes={this.props.pastQuizzes} setCurrentUser={this.props.setCurrentUser} currentUser={this.props.currentUser} isLogging={this.props.isLogging}  />}
           </div>
           <div className='entry-options'>
             <div className='entry-text'onClick={() => this.renderLogin()}>

@@ -14,11 +14,16 @@ class App extends Component {
     super()
     this.state = {
       currentUser: null,
-      pastQuizzes: []
+      pastQuizzes: [],
+      isLogging:false
     }
     this.setCurrentUser = this.setCurrentUser.bind(this)
+    this.isLogging = this.isLogging.bind(this)
   }
 
+  isLogging(logging){
+      this.setState({isLogging: logging})
+  }
   setCurrentUser (user) {
     window.localStorage.setItem('username', user.username)
     window.localStorage.setItem('token', user.token)
@@ -37,7 +42,26 @@ class App extends Component {
   }
 
   render () {
-    const { currentUser } = this.state
+    const { currentUser} = this.state
+    console.log("is Logging " + this.state.isLogging)
+
+    if(this.state.isLogging == true){
+      return(
+        <React.Fragment>
+          <div className="preloader-wrapper small active">
+            <div className="spinner-layer spinner-green-only">
+              <div className="circle-clipper left">
+                <div className="circle"></div>
+              </div><div className="gap-patch">
+                <div className="circle"></div>
+              </div><div className="circle-clipper right">
+                <div className="circle"></div>
+              </div>
+            </div>
+          </div>
+        </React.Fragment>
+      )
+    }
     return (
       <Router>
         <div className='container'>
@@ -61,7 +85,7 @@ class App extends Component {
                 </Guard>} />
               <Route path='/login' render={() =>
                 <Guard condition={!this.state.currentUser} redirectTo='/'>
-                  <EntryForm setCurrentUser={this.setCurrentUser} pastQuizzes={this.state.pastQuizzes} />
+                  <EntryForm isLogging={this.isLogging} setCurrentUser={this.setCurrentUser} pastQuizzes={this.state.pastQuizzes} />
                 </Guard>} />
             </div>
           </div>

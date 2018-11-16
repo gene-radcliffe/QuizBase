@@ -18,6 +18,7 @@ class RegistrationForm extends Component {
     this.validatePassword = this.validatePassword.bind(this)
     this.validateConfirmPassword = this.validateConfirmPassword.bind(this)
     this.validateEmail = this.validateEmail.bind(this)
+    this.validatePasswordsOnBlur = this.validatePasswordsOnBlur.bind(this)
   }
 
   handleSubmit (event) {
@@ -98,7 +99,7 @@ class RegistrationForm extends Component {
       }
 
     }
-    this.setState({ passwordConfirmation: e.target.value })
+    
   }
   validateEmail(e){
 
@@ -123,6 +124,28 @@ class RegistrationForm extends Component {
 
     this.setState({ email: e.target.value })
   }
+  validatePasswordsOnBlur(){
+
+    let password = this.state.password;
+    let cpassword = this.state.passwordConfirmation;
+    let cpassword_input = document.getElementById("confirm-password")
+    
+    if(password == cpassword){
+  
+        if(cpassword_input.classList.contains("invalid")){
+          cpassword_input.classList.remove("invalid")
+        }
+        cpassword_input.classList.add("valid")      
+    }
+    if(password != cpassword){
+  
+      if(cpassword_input.classList.contains("valid")){
+        cpassword_input.classList.remove("valid")
+      }
+      cpassword_input.classList.add("invalid")      
+  }
+  
+  }
   render () {
     return (
       <div className='registration-container box'>
@@ -139,25 +162,26 @@ class RegistrationForm extends Component {
               placeholder='username'
               onChange={(e) => this.setState({ username: e.target.value })} />
           </div>
-          <div className='password box'>
-            <input id='password' className='field password-field' type='password'
+          <div className='input-field password box'>
+            <input id='password' className='field' type='password'
               value={this.state.password}
               placeholder='password'
-              onChange={(e)=> this.validatePassword(e)} />
+              onChange={(e)=> this.validatePassword(e)} onBlur={this.validatePasswordsOnBlur}/>
+              <span className="helper-text" data-error="Your password must be at least 6 characters" data-success="Your password is ok"></span>
           </div>
           <div className='input-field password box'>
-            <input id='confirm-password' className='validate field' type='password'
+            <input id='confirm-password' className='field' type='password'
               value={this.state.passwordConfirmation}
               placeholder='confirm password'
-              onChange={(e) => this.validateConfirmPassword(e)} />
-              <span className="helper-text" data-error="Passwords do not match" data-success="Passwords match"></span>
+              onChange={(e) => this.setState({ passwordConfirmation: e.target.value })} onInput={(e)=>this.validateConfirmPassword(e)}/>
+              <span className="helper-text" data-error="Your passwords do not match" data-success="Your passwords match"></span>
           </div>
           <div className='input-field email box'>
             <input className='validate field' type='email'
               value={this.state.email}
               placeholder='email'
               onChange={(e) => this.validateEmail(e)} />
-                <span className="helper-text" data-error="Passwords do not match" data-success="Passwords match"></span>
+              <span className="helper-text" data-error="Please enter valid email" data-success="Email is Valid"></span>
           </div>
           <button type='submit' className='waves-effect waves-light btn'>Register</button>
         </form>

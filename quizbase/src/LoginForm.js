@@ -18,8 +18,10 @@ class LoginForm extends Component {
   handleSubmit (event) {
     event.preventDefault()
     const { username, password } = this.state
+    this.props.isLogging(true) //logging process
     data.login(username, password)
-      .then(user => this.props.setCurrentUser(user))
+      .then(user => {this.props.setCurrentUser(user)
+                      this.props.isLogging(false)})
     data.getPastQuizzes(username, password)
       .then(pastQuizzes => this.setState({
         pastQuizzes: pastQuizzes
