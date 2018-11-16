@@ -20,12 +20,21 @@ class LoginForm extends Component {
     const { username, password } = this.state
     this.props.isLogging(true) //logging process
     data.login(username, password)
-      .then(user => {this.props.setCurrentUser(user)
-                      this.props.isLogging(false)})
-    data.getPastQuizzes(username, password)
-      .then(pastQuizzes => this.setState({
-        pastQuizzes: pastQuizzes
-      }))
+      .then(user => {
+              if(user.authorized==true){
+                this.props.setCurrentUser(user)
+                data.getPastQuizzes(username, password)
+                  .then(pastQuizzes => this.setState({
+                    pastQuizzes: pastQuizzes
+                  }))
+                this.props.isLogging(false)
+              }else if(user.authorized==false){
+                  alert("wrong password");
+                  this.props.isLogging(false)
+              }
+      })
+                    
+    
   }
 
   render () {

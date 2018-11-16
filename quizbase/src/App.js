@@ -25,9 +25,12 @@ class App extends Component {
       this.setState({isLogging: logging})
   }
   setCurrentUser (user) {
-    window.localStorage.setItem('username', user.username)
-    window.localStorage.setItem('token', user.token)
-    this.setState({ currentUser: user.username })
+    
+      window.localStorage.setItem('username', user.username)
+      window.localStorage.setItem('token', user.token)
+      this.setState({ currentUser: user.username })
+    
+    
   }
 
   resetCurrentUser () {
@@ -43,23 +46,27 @@ class App extends Component {
 
   render () {
     const { currentUser} = this.state
-    console.log("is Logging " + this.state.isLogging)
+    
 
     if(this.state.isLogging == true){
       return(
-        <React.Fragment>
-          <div className="preloader-wrapper small active">
-            <div className="spinner-layer spinner-green-only">
-              <div className="circle-clipper left">
-                <div className="circle"></div>
-              </div><div className="gap-patch">
-                <div className="circle"></div>
-              </div><div className="circle-clipper right">
-                <div className="circle"></div>
+        
+          <div className="app-is_busy ">
+            <div classname="app-is_busy--loader">
+                <div className="preloader-wrapper big active">
+                <div className="spinner-layer spinner-gred-only">
+                  <div className="circle-clipper left">
+                    <div className="circle"></div>
+                  </div><div className="gap-patch">
+                    <div className="circle"></div>
+                  </div><div className="circle-clipper right">
+                    <div className="circle"></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </React.Fragment>
+        
       )
     }
     return (

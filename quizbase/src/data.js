@@ -13,11 +13,31 @@ const data = {
   login: (username, password) => {
     return request.get(`${apiUrl}/api/login`)
       .auth(username, password)
-      .then(res => res.body.user.token)
-      .then(token => {
-        data.setUserToken(token)
-        return { token, username }
+      .then(res =>{
+        let status=null;
+        if(res.body['user']==null){
+          status=res.body.status
+        }else{
+          status=res.body.user.status
+        }
+        
+        if(status=='ok'){
+          let token = res.body.user.token;
+          let username = res.body.user.name;
+          let authorized = true;
+          data.setUserToken(token)
+          return {token, username, authorized}
+        }
+        if(status=='unauthorized'){
+          let authorized = false;
+          return {authorized}
+        }
       })
+      // res.body.user.token)
+      // .then(token => {
+      //   data.setUserToken(token)
+      //   return { token, username }
+      // })
   },
   register: (newUserObject) => {
     return request.post(`${apiUrl}/api/registers`)
