@@ -30,7 +30,7 @@ class LoginForm extends Component {
     const { username, password } = this.state
     return (
       <React.Fragment>
-        <div className='entry-form input-field col s12'>
+        <div className=' log-in_container col s12'>
           <form onSubmit={this.handleSubmit}>
             <div className='box'>
               <div className='input-field'>

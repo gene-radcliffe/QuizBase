@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import data from './data'
 import 'materialize-css'
 import 'materialize-css/dist/css/materialize.min.css'
-
+const pattern = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
 class RegistrationForm extends Component {
   constructor (props) {
     super(props)
@@ -54,7 +54,7 @@ class RegistrationForm extends Component {
     if(e.target.value.length >=6 ){
       if(e.target.classList.contains("invalid")){
           e.target.classList.remove("invalid")
-      }console.log("whoa")
+      }
         e.target.classList.add("valid")
     }
     this.setState({ password: e.target.value })
@@ -106,25 +106,26 @@ class RegistrationForm extends Component {
 
     let result = myRegex.exec(e.target.value)
     if(result != null){
-
-      if(result.length>0){
+      console.log("result " +result.length)
+      if(result.length==4){
         if(e.target.classList.contains("invalid")){
           e.target.classList.remove("invalid")
       }
         e.target.classList.add("valid")
       }
-      // if(result.length==0){
-      //   if(e.target.classList.contains("valid")){
-      //     e.target.classList.remove("valid")
-      // }
-      //   e.target.classList.add("invalid")
-      // }
-      this.setState({ email: e.target.value })
-    }
+      if(result.length<4){
+        if(e.target.classList.contains("valid")){
+          e.target.classList.remove("valid")
+        }
+        e.target.classList.add("invalid")
+      }
+     }
+
+    this.setState({ email: e.target.value })
   }
   render () {
     return (
-      <div className='login box'>
+      <div className='registration-container box'>
         <form onSubmit={this.handleSubmit}>
           <div className='name box'>
             <input className='field' type='text'
@@ -138,8 +139,8 @@ class RegistrationForm extends Component {
               placeholder='username'
               onChange={(e) => this.setState({ username: e.target.value })} />
           </div>
-          <div className='input-field password box'>
-            <input id='password' className='validate field' type='password'
+          <div className='password box'>
+            <input id='password' className='field password-field' type='password'
               value={this.state.password}
               placeholder='password'
               onChange={(e)=> this.validatePassword(e)} />
@@ -152,11 +153,11 @@ class RegistrationForm extends Component {
               <span className="helper-text" data-error="Passwords do not match" data-success="Passwords match"></span>
           </div>
           <div className='input-field email box'>
-            <input className='validate field' type='text'
+            <input className='validate field' type='email'
               value={this.state.email}
               placeholder='email'
               onChange={(e) => this.validateEmail(e)} />
-               <span className="helper-text" data-error="Invalid Email" data-success="Email is valid"></span>
+                <span className="helper-text" data-error="Passwords do not match" data-success="Passwords match"></span>
           </div>
           <button type='submit' className='waves-effect waves-light btn'>Register</button>
         </form>

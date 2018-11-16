@@ -50,9 +50,13 @@
   height: 100%;
   
 }
-.log-in_container{
+.login{
+  height: 5%;
+}
+.log-in_container, .registration-container{
   padding: 1rem;
   background-color:#EDF3EF;
+  
 }
 .shadow-qb{
   -webkit-box-shadow: -28px 0px 28px -16px rgba(0,0,0,0.75);

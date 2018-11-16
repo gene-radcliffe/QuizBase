@@ -24,8 +24,7 @@ class EntryForm extends Component {
   render () {
     return (
       <React.Fragment>
-        <div className='shadow-qb log-in_container'>
-          <div>Login</div>
+        <div className='shadow-qb entry-form'>
           <div>
           {this.state.registering
             ? <RegistrationForm setCurrentUser={this.props.setCurrentUser}
