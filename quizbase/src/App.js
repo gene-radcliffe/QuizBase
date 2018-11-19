@@ -15,10 +15,16 @@ class App extends Component {
     this.state = {
       currentUser: null,
       pastQuizzes: [],
-      isLogging:false
+      isLogging:false,
+      isAuthorized: true
     }
     this.setCurrentUser = this.setCurrentUser.bind(this)
     this.isLogging = this.isLogging.bind(this)
+    this.isAuthorized = this.isAuthorized.bind(this)
+  }
+
+  isAuthorized(authorized){
+    this.setState({isAuthorized: authorized})
   }
 
   isLogging(logging){
@@ -51,8 +57,9 @@ class App extends Component {
     if(this.state.isLogging == true){
       return(
         
-          <div className="app-is_busy ">
-            <div classname="app-is_busy--loader">
+          <div className="app-is_busy center-align shadow-qb">
+                <h1 className='page-header quiz-title-shadow'>QuizBase</h1>
+                <div className="app-is_busy--loader center-align">
                 <div className="preloader-wrapper big active">
                 <div className="spinner-layer spinner-gred-only">
                   <div className="circle-clipper left">
@@ -65,7 +72,10 @@ class App extends Component {
                 </div>
               </div>
             </div>
+            <h6 className='quiz-title-shadow'>contacting server</h6>
           </div>
+            
+      
         
       )
     }
@@ -82,7 +92,7 @@ class App extends Component {
           </div>
           <div className='box-right head'>
             <div className='top-bar'>
-              <h1 className='page-header'>QuizBase</h1>
+              <h1 className='page-header quiz-title-shadow'>QuizBase</h1>
             </div>
 
             <div className='quiz-body-container'>
@@ -92,7 +102,7 @@ class App extends Component {
                 </Guard>} />
               <Route path='/login' render={() =>
                 <Guard condition={!this.state.currentUser} redirectTo='/'>
-                  <EntryForm isLogging={this.isLogging} setCurrentUser={this.setCurrentUser} pastQuizzes={this.state.pastQuizzes} />
+                  <EntryForm passwordOK={this.state.isAuthorized} isAuthorized={this.isAuthorized} isLogging={this.isLogging} setCurrentUser={this.setCurrentUser} pastQuizzes={this.state.pastQuizzes} />
                 </Guard>} />
             </div>
           </div>

@@ -29,7 +29,7 @@ class LoginForm extends Component {
                   }))
                 this.props.isLogging(false)
               }else if(user.authorized==false){
-                  alert("wrong password");
+                  this.props.isAuthorized(false)
                   this.props.isLogging(false)
               }
       })

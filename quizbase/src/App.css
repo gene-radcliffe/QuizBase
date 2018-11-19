@@ -1,12 +1,19 @@
 .app-is_busy{
   position:relative;
   display:block;
-  top: 25%;
-  width: auto;
-  margin:0 auto;
-  border:1px solid black;
+  
+  width: 25%;
+  
+  margin: 0 auto;
+  margin-top: 10%;
+  background-color: #d7e5db;
+  padding-top: 1%;
+  padding-bottom: 5%;
 } 
-
+.app-is_busy--loader{
+  
+ 
+}
 
 .container {
   margin: 5px;
@@ -53,17 +60,40 @@
   margin: 20px;
   margin-bottom: 40px;
   font-size: 1.5rem;
+  
 }
 .entry-text {
-  margin: 10px;
-  padding: 5px;
-  border-radius: 5px
+  position: relative;
+    display:block;
+    width: 25%;
+    float:left;
+    margin: 0;
+   
 }
+
+
 .entry-text:hover {
   cursor: pointer;
 }
 .entry-box {
   height: 100%;
+  
+}
+.entry-text_container, .password-message{
+  width: 50%;
+  
+  padding: 1.5rem;
+}
+.entry-text_container{
+  
+}
+.password-message{
+
+  
+}
+.password-bad{
+  color: red;
+  font-size: 0.8rem;
   
 }
 .login{
@@ -97,12 +127,16 @@
   
 
 }
+
+
 .quiz-view {
   display: flex;
   flex-direction: column;
   margin: 5px;
 }
-
+.quiz-title-shadow{
+  text-shadow: 0px 2px 2px rgba(237,243,239, 0.8);
+}
 @media only screen and (max-width: 375px) {
 
   .container {
@@ -152,12 +186,9 @@
     margin: 20px;
     margin-bottom: 40px;
     font-size: 1.5rem;
+    
   }
-  .entry-text {
-    margin: 10px;
-    padding: 5px;
-    border-radius: 5px
-  }
+ 
   .entry-text:hover {
     cursor: pointer;
   }
@@ -173,20 +204,8 @@
     background-color:#EDF3EF;
     
   }
-  .shadow-qb{
-    -webkit-box-shadow: -28px 0px 28px -16px rgba(0,0,0,0.75);
-    -moz-box-shadow: -28px 0px 28px -16px rgba(0,0,0,0.75);
-    box-shadow: -28px 0px 28px -16px rgba(0,0,0,0.75);
-  }
-  .quiz-title {
-    margin: 50px;
-    padding: 10px;
-    border-radius: 50px;
-    border: 1px solid gray;
-    -webkit-box-shadow: -19px 5px 300px -34px rgba(0,0,0,0.75);
-    -moz-box-shadow: -19px 5px 300px -34px rgba(0,0,0,0.75);
-    box-shadow: -19px 5px 300px -34px rgba(0,0,0,0.75);
-  }
+  
+  
   .quiz-title:hover {
     cursor: pointer;
   }
@@ -203,10 +222,6 @@
   }
   
   .app-is_busy{
-    position:relative;
-    display:block;
-    top: 25%;
-    width: 100%;
    
 
   } 
